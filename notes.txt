@@ -1,0 +1,30 @@
+SQL from Ed's email dated 3/16/15 11:57 am - see other emails from this day
+for more notes on what they're currently doing too. SALIX uses basic
+frequency in a lookup table to guess.
+
+See sql below. Lichen and bryophyte databases definitely has OCR data.
+
+SELECT IFNULL(i.originalurl, i.url) as url, r.rawstr, o.*
+FROM images i inner join specprocessorrawlabels r ON i.imgid = r.imgid
+INNER JOIN omoccurrences o ON i.occid = o.occid;
+
+Unprocessed specimens:
+
+SELECT IFNULL(i.originalurl, i.url) as url, r.rawstr, o.*
+FROM images i inner join specprocessorrawlabels r ON i.imgid = r.imgid
+INNER JOIN omoccurrences o ON i.occid = o.occid
+WHERE o.processingstatus = "unprocessed";
+
+Processed specimens:
+
+SELECT IFNULL(i.originalurl, i.url) as url, r.rawstr, o.*
+FROM images i inner join specprocessorrawlabels r ON i.imgid = r.imgid
+INNER JOIN omoccurrences o ON i.occid = o.occid
+WHERE o.processingstatus IS NULL OR o.processingstatus != "unprocessed";
+
+
+
+
+Dependancies:
+
+apt-get install python-mysqldb
