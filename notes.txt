@@ -28,3 +28,10 @@ WHERE o.processingstatus IS NULL OR o.processingstatus != "unprocessed";
 Dependancies:
 
 apt-get install python-mysqldb
+apt-get install tesseract-ocr
+
+python-six python-lxml python-chardet python-beautifulsoup python-pil python-bs4
+# THis setup fails
+git clone https://github.com/concordusapps/python-hocr.git
+cd python-hocr
+python setup.py install
