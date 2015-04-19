@@ -1,161 +1,46 @@
 #!/usr/bin/python
+#
+# HOCR spec: https://docs.google.com/a/badmatt.com/document/d/1QQnIQtvdAC_8n92-LhwPcjtAUFwBlzE8EWnKAxlgVf0/previewhttps://docs.google.com/a/badmatt.com/document/d/1QQnIQtvdAC_8n92-LhwPcjtAUFwBlzE8EWnKAxlgVf0/preview
+#
 
-#import xml.etree.ElementTree as ET
+from bs4 import BeautifulSoup
 
-#tree = ET.parse("images/NY01406176_lg.xml")
-#root = tree.getroot()
+def parse_title(title):
+    start = title.find("bbox ") + 5
+    end = title.find(";")
+    if end < 0: end = len(title)
+    s = title[start:end].split()
+    #print start, end, s
+    return {"x0": s[0], "y0": s[1], "x1": s[2], "y1": s[3]}
 
-#for child in root:
-#    print child.tag, child.attrib
+soup = BeautifulSoup(open("images/NY01406176_lg.xml"), "xml")
 
-#print root.findall("ocr_line")
-
-
-import re
-
-
-class Box:
-
-    def __init__(self, text=None, left=0, right=0, top=0, bottom=0):
-
-        # Parse the text string representation if given.
-        if text is not None:
-            left, top, right, bottom = map(int, text.split())
-
-        self.left = left
-        self.right = right
-        self.top = top
-        self.bottom = bottom
-
-    @property
-    def width(self):
-        return self.right - self.left
-
-    @property
-    def height(self):
-        return self.bottom - self.top
-
-    def __repr__(self):
-        return '<Box(%r, %r, %r, %r)>' % (
-            self.left, self.top, self.right, self.bottom)
-
-
-class Base:
-
-    _allowed_ocr_classes = {}
-
-    def __init__(self, element):
-        """
-        @param[in] element
-            XML node for the OCR element.
-        """
-
-        # Store the element for later reference.
-        self._element = element
-
-        # Create an element cache.
-        self._cache = {}
-
-        # Parse the properties of the HOCR element.
-        properties = element.get('title', '').split(';')
-        for prop in properties:
-            name, value = prop.split(None, 1)
-            if name == 'bbox':
-                self.box = Box(value)
-
-            elif name == 'image':
-                self.image = value.strip('" ')
-
-    def __dir__(self):
-        return super().__dir__() + list(self._allowed_ocr_classes)
-
-    def __getattr__(self, name):
-        # Return the cached version if present.
-        if name in self._cache:
-            return self._cache[name]
-
-        # Parse the named OCR elements.
-        if name in self._allowed_ocr_classes:
-            ref = OCR_CLASSES[name]
-            nodes = self._element.find_all(class_=re.compile(ref['name']))
-            self._cache[name] = elements = list(map(ref['class'], nodes))
-            return elements
-
-        # Attribute is not present.
-        raise AttributeError(name)
-
-
-class Word(Base):
-
-    _allowed_ocr_classes = {}
-
-    def __init__(self, element):
-        # Initialize the base.
-        super().__init__(element)
-
-        # Discover if we are "bold".
-        # A word element is bold if its text node is wrapped in a <strong/>.
-        self.bold = bool(element.find('strong'))
-
-        # Discover if we are "italic".
-        # A word element is italic if its text node is wrapped in a <em/>.
-        self.italic = bool(element.find('em'))
-
-        # Find the text node.
-        self.text = element.text
-
-    def __str__(self):
-        return '<Word(%r, %r)>' % (self.text, self.box)
-
-
-class Line(Base):
-    _allowed_ocr_classes = {'words'}
-
-
-class Paragraph(Base):
-    _allowed_ocr_classes = {'lines', 'words'}
-
-
-class Block(Base):
-    _allowed_ocr_classes = {'paragraphs', 'lines', 'words'}
-
-
-class Page(Base):
-    _allowed_ocr_classes = {'blocks', 'paragraphs', 'lines', 'words'}
-
-
-OCR_CLASSES = {
-    'words': {'name': 'ocr.?_word', 'class': Word},
-    'lines': {'name': 'ocr_line', 'class': Line},
-    'paragraphs': {'name': 'ocr_par', 'class': Paragraph},
-    'blocks': {'name': 'ocr_carea', 'class': Block}
-}
-
-import six
-from bs4 import UnicodeDammit, BeautifulSoup
-# from lxml.etree import fromstring
-
-
-def parse(source):
-    """Parse a HOCR stream into page elements.
-    @param[in] source
-        Either a file-like object or a filename of the HOCR text.
-    """
-
-    # Corece the source into content.
-    if isinstance(source, six.string_types):
-        with open(source, 'rb') as stream:
-            content = stream.read()
-
-    else:
-        content = source.read()
-
-    # Parse the HOCR xml stream.
-    ud = UnicodeDammit(content, is_html=True)
-    soup = BeautifulSoup(ud.unicode_markup, 'lxml')
-
-    # Get all the pages and parse them into page elements.
-    return [Page(x) for x in soup.find_all(class_='ocr_page')]
-
-
-page = parse("images/NY01406176_lg.xml")
+for a in soup.find_all(class_="ocr_carea"):
+    #print a["title"]
+    bbox_area = parse_title(a["title"])
+    lines = a.find_all(class_="ocr_line")
+    for l in lines:
+        #print l["title"]
+        bbox_line = parse_title(l["title"])
+	words = l.find_all(class_="ocrx_word")
+        for w in words:
+            #print w["title"]
+            bbox_word = parse_title(w["title"])
+            word_dict = { "area_id": a["id"],
+                          "line_id": l["id"],
+                          "word_id": w["id"],
+                          "text": w.get_text(),
+                          "area_x0": bbox_area["x0"],
+                          "area_y0": bbox_area["y0"],
+                          "area_x1": bbox_area["x1"],
+                          "area_y1": bbox_area["y1"],
+                          "line_x0": bbox_line["x0"],
+                          "line_y0": bbox_line["y0"],
+                          "line_x1": bbox_line["x1"],
+                          "line_y1": bbox_line["y1"],
+                          "word_x0": bbox_word["x0"],
+                          "word_y0": bbox_word["x1"],
+                          "word_x1": bbox_word["y0"],
+                          "word_y1": bbox_word["y1"]
+                        }
+            print word_dict
