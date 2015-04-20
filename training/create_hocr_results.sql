@@ -5,7 +5,7 @@ CREATE TABLE hocr_results(
   area_id VARCHAR(32),
   line_id VARCHAR(32),
   word_id VARCHAR(32),
-  text VARCHAR(255),
+  text VARCHAR(255) CHARACTER SET utf8,
   area_x0 INT,
   area_y0 INT,
   area_x1 INT,
