@@ -1,0 +1,21 @@
+CREATE TABLE hocr_results(
+  occid INT,
+  catalogNumber VARCHAR(32),
+  processed INT,
+  area_id VARCHAR(32),
+  line_id VARCHAR(32),
+  word_id VARCHAR(32),
+  text VARCHAR(255),
+  area_x0 INT,
+  area_y0 INT,
+  area_x1 INT,
+  area_y1 INT,
+  line_x0 INT,
+  line_y0 INT,
+  line_x1 INT,
+  line_y1 INT,
+  word_x0 INT,
+  word_y0 INT,
+  word_x1 INT,
+  word_y1 INT
+)
