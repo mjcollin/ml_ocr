@@ -19,4 +19,5 @@ CREATE TABLE hocr_results(
   word_y0 INT,
   word_x1 INT,
   word_y1 INT
-)
+);
+CREATE INDEX IF NOT EXISTS raw_occid ON hocr_results(occid);

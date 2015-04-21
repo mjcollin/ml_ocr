@@ -26,3 +26,9 @@ sql = 'CREATE TABLE ocred_records_raw \
 
 cur.execute(sql)
 db.commit()
+
+cur.execute("CREATE INDEX IF NOT EXISTS raw_occid ON ocred_records_raw(occid);")
+db.commit()
+
+cur.close()
+db.close()
