@@ -1,6 +1,7 @@
 CREATE TABLE hocr_results(
   occid INT,
   catalogNumber VARCHAR(32),
+  filename VARCHAR(255),
   processed INT,
   area_id VARCHAR(32),
   line_id VARCHAR(32),
