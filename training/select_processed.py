@@ -22,7 +22,7 @@ sql = 'CREATE TABLE ocred_records_raw \
        SELECT IFNULL(i.originalurl, i.url) as url, r.rawstr, o.* \
        FROM symblichens.images i INNER JOIN symblichens.specprocessorrawlabels r ON i.imgid = r.imgid \
        INNER JOIN symblichens.omoccurrences o ON i.occid = o.occid \
-       WHERE o.processingstatus IS NULL OR o.processingstatus != "unprocessed" LIMIT 100;'
+       WHERE o.processingstatus IS NULL OR o.processingstatus != "unprocessed";'
 
 cur.execute(sql)
 db.commit()

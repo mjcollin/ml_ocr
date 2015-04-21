@@ -35,3 +35,7 @@ python-six python-lxml python-chardet python-beautifulsoup python-pil python-bs4
 git clone https://github.com/concordusapps/python-hocr.git
 cd python-hocr
 python setup.py install
+# Just ended up writing own parser based on bs4
+
+
+alter database character set = 'utf8'

@@ -83,7 +83,7 @@ while rec:
             cur.execute("DELETE FROM hocr_results WHERE occid=%s AND processed=1", (occid))
             db.commit()
         except:
-            raise
+            pass
 
 
 cur.close()
