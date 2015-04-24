@@ -1,4 +1,5 @@
 CREATE TABLE hocr_results(
+  id INT AUTO_INCREMENT PRIMARY KEY,
   occid INT,
   catalogNumber VARCHAR(32),
   filename VARCHAR(255),
