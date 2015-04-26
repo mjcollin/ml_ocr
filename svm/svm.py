@@ -79,6 +79,7 @@ for feat_name, features in feature_sets.iteritems():
 
     # Save the best model for final predictions (assume it will be a CV model)
     if model_score > best_score:
+        best_feats = feat_name
         best_score = model_score
         best_model = model
         best_params = model.best_params_
@@ -97,11 +98,12 @@ for feat_name, features in feature_sets.iteritems():
 predictions = best_model.predict(best_features)
 
 #print best_model
+print "Best features:", best_feats
 print "Best parameters:", best_params
 print "Best score:", best_score
 
 # Save all results for graphing later
 with open('results.pickle', 'w') as f:
-    pickle.dump([model_results, df, predictions, best_features], f)
+    pickle.dump([model_results, df, predictions, best_score, best_params, best_features, best_model], f)
 
 
