@@ -29,6 +29,7 @@ Dependancies:
 
 apt-get install python-mysqldb
 apt-get install tesseract-ocr
+apt-get install python-sklearn python-numpy python-pandas
 
 python-six python-lxml python-chardet python-beautifulsoup python-pil python-bs4
 # THis setup fails
@@ -50,4 +51,7 @@ alter table hocr_results drop column swap;
 
 
 
-SELECT min(word_x0) as min_word_x0, min(word_y0) as min_word_y0 FROM hocr_results WHERE occid=904652 AND word_x0>10 AND word_y0>10 AND LENGTH(TRIM(text))>2 GROUP BY occid;
+SELECT min(word_x0) as min_word_x0, min(word_y0) as min_word_y0 FROM hocr_results 
+WHERE occid=904652 AND word_x0>10 AND word_y0>10 AND LENGTH(TRIM(text))>2 GROUP BY occid;
+
+
