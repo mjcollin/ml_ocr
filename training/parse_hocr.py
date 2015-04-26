@@ -39,8 +39,8 @@ def parse_hocr(fn):
                               "line_x1": bbox_line["x1"],
                               "line_y1": bbox_line["y1"],
                               "word_x0": bbox_word["x0"],
-                              "word_y0": bbox_word["x1"],
-                              "word_x1": bbox_word["y0"],
+                              "word_y0": bbox_word["y0"],
+                              "word_x1": bbox_word["x1"],
                               "word_y1": bbox_word["y1"]
                             }
                 words_list.append(word_dict)
@@ -48,4 +48,10 @@ def parse_hocr(fn):
     return words_list
 
 
-# print parse_hocr("images/NY01406176_lg.xml")
+par = parse_hocr("hocr/NY01406176_lg.hocr")
+for w in par:
+    if w["text"] == "Richard":
+        print w["word_x0"]
+        print w["word_x1"]
+        print w["word_y0"]
+        print w["word_y1"]

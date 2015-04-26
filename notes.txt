@@ -39,3 +39,15 @@ python setup.py install
 
 
 alter database character set = 'utf8'
+
+
+Correcting hocr_results after finding word_y0 and word_x1 swapped:
+alter table hocr_results add column swap INT;
+update hocr_results set swap=word_y0;
+update hocr_results set word_y0=word_x1;
+update hocr_results set word_x1=swap;
+alter table hocr_results drop column swap;
+
+
+
+SELECT min(word_x0) as min_word_x0, min(word_y0) as min_word_y0 FROM hocr_results WHERE occid=904652 AND word_x0>10 AND word_y0>10 AND LENGTH(TRIM(text))>2 GROUP BY occid;
