@@ -4,6 +4,8 @@ CREATE TABLE hocr_results(
   catalogNumber VARCHAR(32),
   filename VARCHAR(255),
   processed INT,
+  x INT,
+  y INT,
   area_id VARCHAR(32),
   line_id VARCHAR(32),
   word_id VARCHAR(32),
@@ -22,3 +24,4 @@ CREATE TABLE hocr_results(
   word_y1 INT
 );
 CREATE INDEX IF NOT EXISTS raw_occid ON hocr_results(occid);
+CREATE INDEX IF NOT EXISTS hocr_fn ON hocr_results(filename);
