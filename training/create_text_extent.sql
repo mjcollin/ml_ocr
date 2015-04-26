@@ -40,6 +40,8 @@ WHERE
   AND word_y0 > 10 
   AND word_x1 < (x - 10)
   AND word_y1 < (y - 10)
-  AND LENGTH(TRIM(text))>2 
+  AND LENGTH(TRIM(text))>1 
 GROUP BY
   occid;
+
+CREATE INDEX IF NOT EXISTS text_extent_occid ON text_extent(occid);
