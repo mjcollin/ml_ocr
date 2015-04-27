@@ -34,10 +34,4 @@ WHERE
   -- l.occid = 904652
   -- AND l.text = 'Richard'
   l.label IS NOT NULL
-  AND r.area_x0 > e.min_area_x0
-  AND r.area_y0 > e.min_area_y0
-  AND r.line_x0 > e.min_line_x0
-  AND r.line_y0 > e.min_line_y0
-  AND r.word_x0 > e.min_word_x0
-  AND r.word_y0 > e.min_word_y0
 ;
