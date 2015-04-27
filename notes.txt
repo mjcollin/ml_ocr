@@ -55,3 +55,10 @@ SELECT min(word_x0) as min_word_x0, min(word_y0) as min_word_y0 FROM hocr_result
 WHERE occid=904652 AND word_x0>10 AND word_y0>10 AND LENGTH(TRIM(text))>2 GROUP BY occid;
 
 
+  AND r.area_x0 > e.min_area_x0
+  AND r.area_y0 > e.min_area_y0
+  AND r.line_x0 > e.min_line_x0
+  AND r.line_y0 > e.min_line_y0
+  AND r.word_x0 > e.min_word_x0
+  AND r.word_y0 > e.min_word_y0
+
