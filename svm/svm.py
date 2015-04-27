@@ -25,6 +25,12 @@ cache_size = 500  # SVM kernel cache
 
 # Load labeled input data
 df = pd.read_csv('input/input.csv')
+#print df.describe()
+
+# Optionally remove all locality labeled items
+df = df[(df["label"] != "locality")]
+#print df.describe()
+#exit()
 
 
 # Randomly select data (very small slice to begin with for performance reasons)
@@ -53,7 +59,6 @@ for feat_name, features in feature_sets.iteritems():
     train_labels = np.array(train_df['label'], dtype=str) # see https://github.com/scikit-learn/scikit-learn/issues/2374
     test_features = np.array(test_df[features])
     test_labels = np.array(test_df['label'], dtype=str)
-    #print test_labels[0:5]
 
     # Tune C and gamma through cross validation
     classifier = svm.SVC(cache_size=cache_size)
@@ -66,10 +71,6 @@ for feat_name, features in feature_sets.iteritems():
     gs = grid_search.GridSearchCV(classifier, param_grid=param_grid, cv=cv, verbose=1, n_jobs=-1)
     model = gs.fit(train_features, train_labels)
     model_score = model.score(test_features, test_labels)
-
-    #print model.grid_scores_
-    #print model.best_score_
-    #print model.score(test_features, test_labels)
 
     # Single model with defaults
     s_classifier = svm.SVC(cache_size=cache_size)
