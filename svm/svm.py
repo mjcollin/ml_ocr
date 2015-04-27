@@ -28,7 +28,7 @@ df = pd.read_csv('input/input.csv')
 #print df.describe()
 
 # Optionally remove all locality labeled items
-df = df[(df["label"] != "locality")]
+#df = df[(df["label"] != "locality")]
 #print df.describe()
 #exit()
 
@@ -64,8 +64,9 @@ for feat_name, features in feature_sets.iteritems():
     classifier = svm.SVC(cache_size=cache_size)
     cv = cross_validation.KFold(len(train_features), n_folds = folds)
     # Parameter ranges ref: page 5
-    param_grid = {"C": exp_range(pow(2, -5), pow(2, 15), 2), 
-                  "gamma": exp_range(pow(2, -15), pow(2, 3), 2)} 
+    # Reverse to try to get large C's up front to mix better with faster smaller C's, improve runtime
+    param_grid = {"C": exp_range(pow(2, -5), pow(2, 15), 2)[::-1],   
+                  "gamma": exp_range(pow(2, -15), pow(2, 3), 2)[::-1]}
     # Small testing range
     #param_grid = {"C": [1, 10, 100], "gamma": [0, 0.001, 0.1]}
     gs = grid_search.GridSearchCV(classifier, param_grid=param_grid, cv=cv, verbose=1, n_jobs=-1)
