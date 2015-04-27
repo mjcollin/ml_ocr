@@ -9,11 +9,11 @@ select distinct url from ocred_records_raw where occid=499787;
 
 */
 SELECT
-  "id", "occid", "text", "label", "scaled_area_x0", "scaled_area_y0",
+  "id", "occid", "text_len", "label", "scaled_area_x0", "scaled_area_y0",
   "scaled_line_x0", "scaled_line_y0", "scaled_word_x0", "scaled_word_y0"
 UNION
 SELECT
-  id, occid, text, label, scaled_area_x0, scaled_area_y0, 
+  id, occid, LENGTH(TRIM(text)), label, scaled_area_x0, scaled_area_y0, 
   scaled_line_x0, scaled_line_y0, scaled_word_x0, scaled_word_y0
 FROM
   input
