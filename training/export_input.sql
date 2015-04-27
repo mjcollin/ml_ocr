@@ -26,5 +26,6 @@ WHERE
   AND scaled_word_y0 >= 0 AND scaled_word_y0 <= 1
 INTO OUTFILE
   '/tmp/input.csv'
-FIELDS TERMINATED BY ','
+FIELDS ENCLOSED BY '"'
+TERMINATED BY ','
 ;
