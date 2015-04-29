@@ -1,0 +1,5 @@
+This is a quick tryout of using SVM on the X Y coordinates of text in musuem
+specimen labels to try to classify words into DwC fields.
+
+(No, the MySQL DB password won't work on anything other than my localhost MySQL
+instance.)
