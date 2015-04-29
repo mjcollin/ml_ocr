@@ -62,3 +62,36 @@ WHERE occid=904652 AND word_x0>10 AND word_y0>10 AND LENGTH(TRIM(text))>2 GROUP 
   AND r.word_x0 > e.min_word_x0
   AND r.word_y0 > e.min_word_y0
 
+
+Output from run of 25% of no loc on c10node12:
+root@c10node12:~/svm# time ./svm.py
+Selected 25275 training samples and 75850 testing samples.
+Fitting 4 folds for each of 360 candidates, totalling 1440 fits
+[Parallel(n_jobs=-1)]: Done  50 jobs       | elapsed:  1.6min
+[Parallel(n_jobs=-1)]: Done 200 jobs       | elapsed:  3.9min
+[Parallel(n_jobs=-1)]: Done 450 jobs       | elapsed: 16.4min
+[Parallel(n_jobs=-1)]: Done 800 jobs       | elapsed: 21.2min
+[Parallel(n_jobs=-1)]: Done   1 out of 1440 | elapsed: 67.3min remaining: 96903.7min
+[Parallel(n_jobs=-1)]: Done 1440 out of 1440 | elapsed: 67.3min finished
+Fitting 4 folds for each of 360 candidates, totalling 1440 fits
+[Parallel(n_jobs=-1)]: Done  50 jobs       | elapsed:  1.7min
+[Parallel(n_jobs=-1)]: Done 200 jobs       | elapsed:  4.1min
+[Parallel(n_jobs=-1)]: Done 450 jobs       | elapsed: 18.5min
+[Parallel(n_jobs=-1)]: Done 800 jobs       | elapsed: 25.8min
+[Parallel(n_jobs=-1)]: Done   1 out of 1440 | elapsed: 63.6min remaining: 91583.1min
+[Parallel(n_jobs=-1)]: Done 1440 out of 1440 | elapsed: 63.6min finished
+Fitting 4 folds for each of 360 candidates, totalling 1440 fits
+[Parallel(n_jobs=-1)]: Done  50 jobs       | elapsed:  1.7min
+[Parallel(n_jobs=-1)]: Done 200 jobs       | elapsed:  4.7min
+[Parallel(n_jobs=-1)]: Done 450 jobs       | elapsed: 16.4min
+[Parallel(n_jobs=-1)]: Done 800 jobs       | elapsed: 20.5min
+[Parallel(n_jobs=-1)]: Done   1 out of 1440 | elapsed: 64.0min remaining: 92075.9min
+[Parallel(n_jobs=-1)]: Done 1440 out of 1440 | elapsed: 64.0min finished
+Best features: area
+Best parameters: {'C': 4096.0, 'gamma': 4.0}
+Best score: 0.70433750824
+
+real    325m55.911s
+user    11636m2.718s
+sys     139m41.175s
+
