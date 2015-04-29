@@ -95,3 +95,42 @@ real    325m55.911s
 user    11636m2.718s
 sys     139m41.175s
 
+
+1% of all on Elk
+root@elk:~/mlproject/svm# time ./svm.py 
+Selected 2658 training samples and 263224 testing samples.
+Fitting 4 folds for each of 360 candidates, totalling 1440 fits
+[Parallel(n_jobs=-1)]: Done  50 jobs       | elapsed:  1.0min
+[Parallel(n_jobs=-1)]: Done   1 jobs       | elapsed:  1.3min
+[Parallel(n_jobs=-1)]: Done 200 jobs       | elapsed:  2.1min
+[Parallel(n_jobs=-1)]: Done 450 jobs       | elapsed:  2.7min
+[Parallel(n_jobs=-1)]: Done 800 jobs       | elapsed:  3.0min
+[Parallel(n_jobs=-1)]: Done 1250 jobs       | elapsed:  3.2min
+[Parallel(n_jobs=-1)]: Done 1410 out of 1440 | elapsed:  3.2min remaining:    4.1s
+[Parallel(n_jobs=-1)]: Done 1440 out of 1440 | elapsed:  3.3min finished
+Fitting 4 folds for each of 360 candidates, totalling 1440 fits
+[Parallel(n_jobs=-1)]: Done  50 jobs       | elapsed:  1.3min
+[Parallel(n_jobs=-1)]: Done   1 jobs       | elapsed:  2.0min
+[Parallel(n_jobs=-1)]: Done 200 jobs       | elapsed:  3.0min
+[Parallel(n_jobs=-1)]: Done 450 jobs       | elapsed:  4.1min
+[Parallel(n_jobs=-1)]: Done 800 jobs       | elapsed:  4.4min
+[Parallel(n_jobs=-1)]: Done 1250 jobs       | elapsed:  4.6min
+[Parallel(n_jobs=-1)]: Done 1410 out of 1440 | elapsed:  4.6min remaining:    5.9s
+[Parallel(n_jobs=-1)]: Done 1440 out of 1440 | elapsed:  4.6min finished
+Fitting 4 folds for each of 360 candidates, totalling 1440 fits
+[Parallel(n_jobs=-1)]: Done   1 jobs       | elapsed:   38.4s
+[Parallel(n_jobs=-1)]: Done  50 jobs       | elapsed:   43.0s
+[Parallel(n_jobs=-1)]: Done 200 jobs       | elapsed:  1.4min
+[Parallel(n_jobs=-1)]: Done 450 jobs       | elapsed:  1.9min
+[Parallel(n_jobs=-1)]: Done 800 jobs       | elapsed:  2.1min
+[Parallel(n_jobs=-1)]: Done 1250 jobs       | elapsed:  2.3min
+[Parallel(n_jobs=-1)]: Done 1410 out of 1440 | elapsed:  2.4min remaining:    3.1s
+[Parallel(n_jobs=-1)]: Done 1440 out of 1440 | elapsed:  2.4min finished
+Best features: area
+Best parameters: {'C': 32.0, 'gamma': 4.0}
+Best score: 0.72596723703
+
+real    15m9.373s
+user    169m28.445s
+sys     0m6.562s
+
